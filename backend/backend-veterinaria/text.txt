@@ -1,0 +1,18 @@
+cliente crud
+mascotas crud - citas
+    ecpecie
+    raza
+veterinarios - citas, crud
+    Especialidad
+citas - remedios, agendar, marcar como realizada
+    sintoma
+    remedio-dosis
+remedios, crud
+
+
+
+
+cliente: nombre, cedula, telefono, correo
+mascota: nombre, ecpecie, raza, fecha nacimiento
+cita: mascota, veterinarios, sintomas, fecha, remedio-dosis
+veterinario: nombre, cedula, telefono, correo
