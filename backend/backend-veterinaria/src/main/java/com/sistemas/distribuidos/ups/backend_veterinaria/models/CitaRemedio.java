@@ -1,5 +1,6 @@
 package com.sistemas.distribuidos.ups.backend_veterinaria.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,22 +13,23 @@ public class CitaRemedio {
 
     @ManyToOne
     @JoinColumn(name = "cita_id")
+    @JsonIgnore
     private Cita cita;
 
     @ManyToOne
     @JoinColumn(name = "remedio_id")
     private Remedio remedio;
 
-    private Integer cantidad;
+    private Integer dosis;
 
     public CitaRemedio() {
     }
 
-    public CitaRemedio(Long id, Cita cita, Remedio remedio, Integer cantidad) {
+    public CitaRemedio(Long id, Cita cita, Remedio remedio, Integer dosis) {
         this.id = id;
         this.cita = cita;
         this.remedio = remedio;
-        this.cantidad = cantidad;
+        this.dosis = dosis;
     }
 
     public Long getId() {
@@ -48,6 +50,13 @@ public class CitaRemedio {
     }
     public void setRemedio(Remedio remedio) {
         this.remedio = remedio;
+    }
+
+    public Integer getDosis() {
+        return dosis;
+    }
+    public void setDosis(Integer cantidad) {
+        this.dosis = cantidad;
     }
 
 
