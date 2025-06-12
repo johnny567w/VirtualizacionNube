@@ -1,0 +1,13 @@
+
+# Información para el equipo backend
+
+NFS Server:
+IP interna: 10.128.0.5
+Directorio compartido: /srv/shared-data
+Punto de montaje en backend: /mnt/shared-data
+
+Base de datos:
+IP interna: 10.128.0.X
+Puerto: 5432 (PostgreSQL)
+
+Recomendación: Montar /mnt/shared-data en backend y verificar lectura/escritura para guardar logs, archivos o imágenes de la app si aplica.
