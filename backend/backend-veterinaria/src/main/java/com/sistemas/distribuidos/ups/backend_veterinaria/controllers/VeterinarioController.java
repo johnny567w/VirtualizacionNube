@@ -2,8 +2,10 @@ package com.sistemas.distribuidos.ups.backend_veterinaria.controllers;
 
 import com.sistemas.distribuidos.ups.backend_veterinaria.dto.VeterinarioDTO;
 import com.sistemas.distribuidos.ups.backend_veterinaria.models.Especialidad;
+import com.sistemas.distribuidos.ups.backend_veterinaria.models.Mensaje;
 import com.sistemas.distribuidos.ups.backend_veterinaria.models.Veterinario;
 import com.sistemas.distribuidos.ups.backend_veterinaria.services.VeterinarioService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,9 +55,10 @@ public class VeterinarioController {
     public ResponseEntity<?> delete(@PathVariable Long id){
         Optional<Veterinario> veterinarioOptional = veterinarioServicio.deleteById(id);
         if (veterinarioOptional.isPresent()) {
-            return ResponseEntity.ok("El veterinario con id: " + id + " ha sido eliminado correctamente.");
+            return ResponseEntity.ok(new Mensaje("El veterinario con id: " + id + " ha sido eliminado correctamente."));
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new Mensaje("El veterinario con id: " + id + " no existe."));
     }
 
     @GetMapping("/especialidades")

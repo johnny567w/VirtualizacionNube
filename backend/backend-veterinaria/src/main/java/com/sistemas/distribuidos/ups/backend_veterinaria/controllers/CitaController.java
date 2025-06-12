@@ -2,11 +2,14 @@ package com.sistemas.distribuidos.ups.backend_veterinaria.controllers;
 
 import com.sistemas.distribuidos.ups.backend_veterinaria.dto.CitaDTO;
 import com.sistemas.distribuidos.ups.backend_veterinaria.models.Cita;
+import com.sistemas.distribuidos.ups.backend_veterinaria.models.Mensaje;
 import com.sistemas.distribuidos.ups.backend_veterinaria.services.CitaService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -53,8 +56,16 @@ public class CitaController {
     public ResponseEntity<?> delete(@PathVariable Long id){
         Optional<Cita> citaOptional = citaService.deleteById(id);
         if (citaOptional.isPresent()) {
-            return ResponseEntity.ok("La cita con id: " + id + " ha sido eliminada correctamente.");
+            return ResponseEntity.ok(new Mensaje("La cita con id: " + id + " ha sido eliminada correctamente."));
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new Mensaje("La cita con id: " + id + " no existe."));
+    }
+
+    @PutMapping("/{cita_id}/{estado_cita_id}")
+    public ResponseEntity<?> changeEstadoCita(@PathVariable Long cita_id, @PathVariable Long estado_cita_id){
+        return citaService.changeEstadoCita(cita_id, estado_cita_id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }
