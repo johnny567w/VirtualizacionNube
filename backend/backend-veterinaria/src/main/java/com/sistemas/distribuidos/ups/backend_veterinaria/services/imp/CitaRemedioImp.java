@@ -40,11 +40,9 @@ public class CitaRemedioImp implements CitaRemedioService {
     public CitaRemedio save(CitaRemedioDTO citaRemedioDTO) {
 
         CitaRemedio citaRemedio = new CitaRemedio();
-
         if (citaRemedioDTO.getId() != null) {
             citaRemedio.setId(citaRemedioDTO.getId());
         }
-
         citaRemedio.setDosis(citaRemedioDTO.getDosis());
 
         Optional<Cita> citaOptional  = citaRepository.findById(citaRemedioDTO.getCitaId());
