@@ -1,0 +1,166 @@
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AmiPet - Veterinaria Especializada</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        .pet-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #10b981 100%);
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+ 
+    <section id="home" class="hero-gradient text-white pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+            <div class="md:flex items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">Cuidamos a tu <span class="text-yellow-300">mejor amigo</span></h1>
+                    <p class="text-xl mb-8">En AmiPet brindamos atención veterinaria especializada con amor y profesionalismo. Tu mascota merece lo mejor y nosotros estamos aquí para proporcionarlo.</p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#appointments" class="bg-white text-indigo-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-all duration-300 text-center">Agendar cita</a>
+                        <a href="#vets" class="border-2 border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-indigo-600 transition-all duration-300 text-center">Nuestros veterinarios</a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/194/194279.png" alt="Happy Dog" class="w-64 h-64 pet-float">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Nuestros Servicios</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-gray-50 rounded-xl p-6 shadow-md transition-all card-hover-effect">
+                    <div class="text-indigo-600 mb-4">
+                        <i class="fas fa-syringe text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Vacunación</h3>
+                    <p class="text-gray-600">Programas completos de vacunación para proteger a tu mascota contra las enfermedades más comunes.</p>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="bg-gray-50 rounded-xl p-6 shadow-md transition-all card-hover-effect">
+                    <div class="text-indigo-600 mb-4">
+                        <i class="fas fa-stethoscope text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Consultas Médicas</h3>
+                    <p class="text-gray-600">Exámenes generales, diagnósticos y tratamiento de enfermedades con equipos de última generación.</p>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="bg-gray-50 rounded-xl p-6 shadow-md transition-all card-hover-effect">
+                    <div class="text-indigo-600 mb-4">
+                        <i class="fas fa-cut text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Estética Canina</h3>
+                    <p class="text-gray-600">Baños, cortes de pelo, limpieza de oídos y uñas. Deja que tu mascota luzca espectacular.</p>
+                </div>          
+            </div>
+        </div>
+    </section>
+
+
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+                
+                // Update active state in navigation
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('border-indigo-500', 'text-gray-900');
+                    link.classList.add('border-transparent', 'text-gray-500');
+                });
+                
+                document.querySelectorAll('.nav-link-mobile').forEach(link => {
+                    link.classList.remove('bg-indigo-50', 'border-indigo-500', 'text-indigo-700');
+                    link.classList.add('border-transparent', 'text-gray-600');
+                });
+                
+                if (this.classList.contains('nav-link')) {
+                    this.classList.remove('border-transparent', 'text-gray-500');
+                    this.classList.add('border-indigo-500', 'text-gray-900');
+                }
+                
+                if (this.classList.contains('nav-link-mobile')) {
+                    this.classList.remove('border-transparent', 'text-gray-600');
+                    this.classList.add('bg-indigo-50', 'border-indigo-500', 'text-indigo-700');
+                }
+            });
+        });
+        
+        // Update active navigation link on scroll
+        window.addEventListener('scroll', function() {
+            let scrollPosition = window.scrollY + 100;
+            
+            document.querySelectorAll('section').forEach(section => {
+                if (scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.offsetHeight) {
+                    const id = section.getAttribute('id');
+                    
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('border-indigo-500', 'text-gray-900');
+                        link.classList.add('border-transparent', 'text-gray-500');
+                    });
+                    
+                    document.querySelectorAll('.nav-link-mobile').forEach(link => {
+                        link.classList.remove('bg-indigo-50', 'border-indigo-500', 'text-indigo-700');
+                        link.classList.add('border-transparent', 'text-gray-600');
+                    });
+                    
+                    const correspondingNavLink = document.querySelector(`.nav-link[href="#${id}"]`);
+                    const correspondingMobileNavLink = document.querySelector(`.nav-link-mobile[href="#${id}"]`);
+                    
+                    if (correspondingNavLink) {
+                        correspondingNavLink.classList.remove('border-transparent', 'text-gray-500');
+                        correspondingNavLink.classList.add('border-indigo-500', 'text-gray-900');
+                    }
+                    
+                    if (correspondingMobileNavLink) {
+                        correspondingMobileNavLink.classList.remove('border-transparent', 'text-gray-600');
+                        correspondingMobileNavLink.classList.add('bg-indigo-50', 'border-indigo-500', 'text-indigo-700');
+                    }
+                }
+            });
+        });
+    </script>
+
+    <app-footer></app-footer>

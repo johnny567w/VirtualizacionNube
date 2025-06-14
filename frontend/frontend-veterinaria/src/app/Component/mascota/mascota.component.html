@@ -1,0 +1,93 @@
+<div class="max-w-5xl mx-auto mt-8 p-6 bg-white shadow-lg rounded-xl space-y-6">
+
+  <!-- Título -->
+  <h2 class="text-3xl font-semibold text-blue-800 border-b pb-2">Gestión de Mascotas</h2>
+
+  <!-- Formulario -->
+  <form (ngSubmit)="guardarMascota()" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+    <!-- Nombre -->
+    <div>
+      <label class="block font-medium text-gray-700 mb-1">Nombre</label>
+      <input type="text" [(ngModel)]="nuevaMascota.nombre" name="nombre" required
+             class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+    </div>
+
+    <!-- Fecha de nacimiento -->
+    <div>
+      <label class="block font-medium text-gray-700 mb-1">Fecha de nacimiento</label>
+      <input type="date" [(ngModel)]="nuevaMascota.fechaNacimiento" name="fechaNacimiento" required
+             class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+    </div>
+
+    <!-- Cliente -->
+    <div>
+      <label class="block font-medium text-gray-700 mb-1">Cliente</label>
+      <select [(ngModel)]="nuevaMascota.cliente" name="cliente" required
+              class="w-full p-2 border border-gray-300 rounded-lg bg-white">
+        <option *ngFor="let c of clientes" [ngValue]="c">{{ c.nombre }}</option>
+      </select>
+    </div>
+
+    <!-- Especie -->
+    <div>
+      <label class="block font-medium text-gray-700 mb-1">Especie</label>
+      <select [(ngModel)]="nuevaMascota.raza.especie" name="especie" required
+              class="w-full p-2 border border-gray-300 rounded-lg bg-white">
+        <option *ngFor="let e of especies" [ngValue]="e">{{ e.nombre }}</option>
+      </select>
+    </div>
+
+    <!-- Raza -->
+    <div class="md:col-span-2">
+      <label class="block font-medium text-gray-700 mb-1">Raza</label>
+      <input type="text" [(ngModel)]="nuevaMascota.raza.nombre" name="raza" required
+             placeholder="Ingrese el nombre de la raza"
+             class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+    </div>
+
+    <!-- Botón -->
+    <div class="md:col-span-2 text-right">
+      <button type="submit"
+              class="bg-blue-600 text-white font-semibold px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+        Guardar Mascota
+      </button>
+    </div>
+  </form>
+
+  <!-- Tabla -->
+  <div class="overflow-x-auto mt-6">
+    <h3 class="text-xl font-semibold mb-3 text-gray-800">Mascotas Registradas</h3>
+
+    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+      <thead class="bg-blue-100 text-blue-800">
+        <tr>
+          <th class="px-4 py-2 text-left">Nombre</th>
+          <th class="px-4 py-2 text-left">Nacimiento</th>
+          <th class="px-4 py-2 text-left">Cliente</th>
+          <th class="px-4 py-2 text-left">Raza</th>
+          <th class="px-4 py-2 text-left">Especie</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let m of mascotas" class="border-t hover:bg-gray-50">
+          <td class="px-4 py-2">{{ m.nombre }}</td>
+          <td class="px-4 py-2">{{ m.fechaNacimiento }}</td>
+          <td class="px-4 py-2">{{ m.cliente?.nombre }}</td>
+          <td class="px-4 py-2">{{ m.raza?.nombre }}</td>
+          <td class="px-4 py-2">{{ m.raza?.especie?.nombre }}</td>
+          <td class="px-4 py-2 text-center">
+            <button (click)="eliminar(m.id!)"
+                    class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="mascotas.length === 0" class="text-center text-gray-500 mt-4">
+      No hay mascotas registradas aún.
+    </div>
+  </div>
+</div>

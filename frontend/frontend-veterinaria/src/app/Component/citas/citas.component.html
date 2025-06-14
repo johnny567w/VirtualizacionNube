@@ -1,0 +1,75 @@
+<section class="max-w-3xl mx-auto py-10 px-4 space-y-8">
+
+  <!-- Pregunta inicial -->
+  <div class="text-center">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">¿Eres cliente?</h2>
+    <div class="flex justify-center gap-6">
+      <button (click)="esCliente = true"
+              class="px-4 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700">
+        Sí
+      </button>
+      <button (click)="redirigirFormularioClientes()"
+              class="px-4 py-2 rounded bg-gray-300 text-gray-800 hover:bg-gray-400">
+        No
+      </button>
+    </div>
+  </div>
+
+  <!-- Selección de cliente -->
+  <div *ngIf="esCliente === true" class="space-y-4">
+    <label class="block font-medium text-gray-700">Selecciona tu nombre</label>
+<select #clienteSelect (change)="seleccionarCliente(+clienteSelect.value)"
+        class="...">
+  <option *ngFor="let c of clientes" [value]="c.id">{{ c.nombre }}</option>
+</select>
+
+
+  </div>
+
+  <!-- Selección de mascota -->
+  <div *ngIf="clienteSeleccionado" class="space-y-4">
+    <label class="block font-medium text-gray-700">Selecciona tu mascota</label>
+    <select [(ngModel)]="mascotaSeleccionada"
+            name="mascota_id"
+            class="block w-full border border-gray-300 rounded px-3 py-2">
+      <option disabled selected>-- Elige una mascota --</option>
+      <option *ngFor="let m of mascotasDelCliente()" [ngValue]="m">{{ m.nombre }}</option>
+    </select>
+  </div>
+
+  <!-- Formulario de cita -->
+  <form *ngIf="mascotaSeleccionada" #form="ngForm" (ngSubmit)="registrarCita(form)"
+        class="bg-white border border-gray-300 p-6 rounded shadow space-y-4">
+
+    <h3 class="text-xl font-bold text-gray-800 mb-2">Formulario de Cita</h3>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Fecha</label>
+      <input type="date" name="fecha" ngModel required
+             class="block w-full border border-gray-300 rounded px-3 py-2">
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Síntomas</label>
+      <textarea name="sintomas" ngModel rows="3" required
+                class="block w-full border border-gray-300 rounded px-3 py-2"></textarea>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Precio estimado (opcional)</label>
+      <input type="number" name="precio" ngModel
+             class="block w-full border border-gray-300 rounded px-3 py-2">
+    </div>
+
+    <input type="hidden" name="cliente_id" [value]="clienteSeleccionado.id" ngModel>
+    <input type="hidden" name="mascota_id" [value]="mascotaSeleccionada.id" ngModel>
+
+    <div class="text-right pt-4">
+      <button type="submit"
+              class="px-6 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700">
+        Registrar Cita
+      </button>
+    </div>
+  </form>
+
+</section>

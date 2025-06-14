@@ -1,0 +1,108 @@
+<div class="max-w-5xl mx-auto px-4 py-6 space-y-6">
+
+  <!-- Título -->
+  <h2 class="text-2xl font-bold text-gray-800">Gestión de Clientes</h2>
+
+  <!-- Mensaje del backend -->
+  <div *ngIf="mensajeBack" class="bg-green-100 text-green-700 px-4 py-2 rounded border border-green-300">
+    {{ mensajeBack }}
+  </div>
+
+  <!-- Formulario -->
+  <form #formulario="ngForm"
+        (ngSubmit)="formulario.valid && (editandoId ? actualizarCliente() : guardarCliente())"
+        class="space-y-4">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- Nombre -->
+      <div>
+        <input type="text" name="nombre" [(ngModel)]="nuevoCliente.nombre" #nombre="ngModel" required
+               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+               [ngClass]="{'border-red-500': nombre.invalid && nombre.touched}" />
+        <label class="block mt-1 text-gray-600">Nombre Completo</label>
+        <div *ngIf="nombre.invalid && nombre.touched" class="text-red-500 text-sm mt-1">Campo obligatorio.</div>
+      </div>
+
+      <!-- Cédula -->
+      <div>
+        <input type="text" name="cedula" [(ngModel)]="nuevoCliente.cedula" #cedula="ngModel" required
+               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+               [ngClass]="{'border-red-500': cedula.invalid && cedula.touched}" />
+        <label class="block mt-1 text-gray-600">Cédula</label>
+        <div *ngIf="cedula.invalid && cedula.touched" class="text-red-500 text-sm mt-1">Campo obligatorio.</div>
+      </div>
+
+      <!-- Teléfono -->
+      <div>
+        <input type="text" name="telefono" [(ngModel)]="nuevoCliente.telefono" #telefono="ngModel" required
+               pattern="^[0-9]{7,15}$"
+               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+               [ngClass]="{'border-red-500': telefono.invalid && telefono.touched}" />
+        <label class="block mt-1 text-gray-600">Teléfono</label>
+        <div *ngIf="telefono.invalid && telefono.touched" class="text-red-500 text-sm mt-1">
+          Número entre 7 y 15 dígitos.
+        </div>
+      </div>
+
+      <!-- Correo -->
+      <div>
+        <input type="email" name="correo" [(ngModel)]="nuevoCliente.correo" #correo="ngModel" required
+               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+               [ngClass]="{'border-red-500': correo.invalid && correo.touched}" />
+        <label class="block mt-1 text-gray-600">Correo Electrónico</label>
+        <div *ngIf="correo.invalid && correo.touched" class="text-red-500 text-sm mt-1">
+          Ingresa un correo válido.
+        </div>
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="flex justify-end gap-2 pt-4">
+      <button *ngIf="!editandoId" type="submit"
+              class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg">
+        Agregar Cliente
+      </button>
+
+      <button *ngIf="editandoId" type="submit"
+              class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg">
+        Actualizar
+      </button>
+
+      <button *ngIf="editandoId" type="button" (click)="cancelarEdicion()"
+              class="bg-gray-400 text-white font-medium py-2 px-4 rounded-lg">
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <!-- Lista de Clientes -->
+  <div class="bg-white rounded-lg shadow-md p-6 mt-8">
+    <h3 class="text-xl font-semibold text-gray-800 mb-4">Clientes Registrados</h3>
+
+    <div *ngIf="clientes.length === 0" class="text-center py-8 bg-gray-50 rounded-lg">
+      <i class="fas fa-users text-4xl text-gray-300 mb-3"></i>
+      <p class="text-gray-500">No hay clientes registrados aún.</p>
+    </div>
+
+    <div *ngIf="clientes.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div *ngFor="let cli of clientes" class="border border-gray-200 rounded-lg p-4 shadow-sm bg-white">
+        <h4 class="text-lg font-bold text-blue-700">{{ cli.nombre }}</h4>
+        <p><span class="font-semibold">Cédula:</span> {{ cli.cedula }}</p>
+        <p><span class="font-semibold">Correo:</span> {{ cli.correo }}</p>
+        <p><span class="font-semibold">Teléfono:</span> {{ cli.telefono }}</p>
+
+        <div class="flex justify-between mt-4">
+          <button class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-1 rounded"
+                  (click)="editarCliente(cli)">
+            <i class="fas fa-edit mr-1"></i> Editar
+          </button>
+          <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded"
+                  (click)="eliminarCliente(cli.id!)">
+            <i class="fas fa-trash-alt mr-1"></i> Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
