@@ -2,6 +2,7 @@ package com.sistemas.distribuidos.ups.backend_veterinaria.controllers;
 
 import com.sistemas.distribuidos.ups.backend_veterinaria.dto.CitaDTO;
 import com.sistemas.distribuidos.ups.backend_veterinaria.models.Cita;
+import com.sistemas.distribuidos.ups.backend_veterinaria.models.EstadoCita;
 import com.sistemas.distribuidos.ups.backend_veterinaria.models.Mensaje;
 import com.sistemas.distribuidos.ups.backend_veterinaria.services.CitaService;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,11 @@ public class CitaController {
     @GetMapping
     public List<Cita> list(){
         return citaService.findAll();
+    }
+
+    @GetMapping("/estado-citas")
+    public List<EstadoCita> listEstadoCitas(){
+        return citaService.findAllEstadosCita();
     }
 
     @GetMapping("/{id}")
