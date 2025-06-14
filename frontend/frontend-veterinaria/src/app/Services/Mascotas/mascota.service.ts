@@ -43,4 +43,8 @@ export class MascotaService {
   getClientes(): Observable<Cliente[]> {
     return this.http.get<Cliente[]>('/api/clientes');
   }
+  getByCliente(clienteId: number): Observable<Mascota[]> {
+  return this.http.get<Mascota[]>(`${this.apiUrl}/cliente/${clienteId}`);
+}
+
 }

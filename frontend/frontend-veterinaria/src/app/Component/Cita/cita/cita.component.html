@@ -1,0 +1,139 @@
+<div class="p-6 max-w-4xl mx-auto bg-white rounded-xl shadow-md space-y-4">
+  <h2 class="text-2xl font-bold mb-4">Registro de Citas</h2>
+
+  <!-- Pregunta inicial -->
+  <div class="mb-6">
+    <p class="text-lg font-semibold mb-2">¿no encuentras el registro que necesitas?</p>
+    <div class="flex gap-4">
+      <button (click)="esCliente = false" class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">agregar</button>
+    </div>
+  </div>
+
+  <!-- Si NO es cliente -->
+  <div *ngIf="esCliente === false" class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 mb-6 rounded">
+    <p class="mb-3">Debes registrarte como cliente y registrar una mascota antes de agendar una cita.</p>
+    <div class="flex gap-4 flex-wrap">
+      <a routerLink="/clientes" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-center">
+        Registrar Cliente
+      </a>
+      <a routerLink="/mascotas" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-center">
+        Registrar Mascota
+      </a>
+      <button (click)="esCliente = null" class="border border-indigo-600 text-indigo-600 px-4 py-2 rounded hover:bg-indigo-100 text-center">
+        Volver
+      </button>
+    </div>
+  </div>
+<div class="p-6 max-w-4xl mx-auto bg-white rounded-xl shadow-md space-y-4">
+  <h2 class="text-2xl font-bold mb-4">Registro de Citas</h2>
+
+  <form (ngSubmit)="guardarCita()" class="space-y-4">
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block mb-1">Fecha</label>
+        <input type="date" [(ngModel)]="nuevaCita.fecha" name="fecha"
+               class="w-full border px-3 py-2 rounded" required />
+      </div>
+
+      <div>
+        <label class="block mb-1">Precio</label>
+        <input type="number" [(ngModel)]="nuevaCita.precio" name="precio"
+               class="w-full border px-3 py-2 rounded" required />
+      </div>
+
+      <div class="col-span-2">
+        <label class="block mb-1">Síntomas</label>
+        <textarea [(ngModel)]="nuevaCita.sintomas" name="sintomas"
+                  class="w-full border px-3 py-2 rounded" required></textarea>
+      </div>
+
+      <div>
+        <label class="block mb-1">Mascota</label>
+        <select [(ngModel)]="nuevaCita.mascotaId" name="mascotaId" class="w-full border px-3 py-2 rounded" required>
+          <option *ngFor="let mascota of mascotas" [value]="mascota.id">
+            {{ mascota.nombre }}
+          </option>
+        </select>
+      </div>
+
+<!-- aqui va eso de etados xd-->
+<div>
+  <label class="block mb-1">Estado de la Cita</label>
+  <select [(ngModel)]="nuevaCita.estadoId" name="estadoId" class="w-full border px-3 py-2 rounded" required>
+    <option value="" disabled selected>-- Selecciona un estado --</option>
+    <option *ngFor="let estado of estados" [value]="estado.id">
+      {{ estado.nombre }}
+    </option>
+  </select>
+</div>
+
+
+
+      <div class="col-span-2">
+        <label class="block mb-1">Veterinarios</label>
+        <select multiple [(ngModel)]="nuevaCita.veterinariosIds" name="veterinariosIds"
+                class="w-full border px-3 py-2 rounded">
+          <option *ngFor="let vet of veterinarios" [value]="vet.id">
+            {{ vet.nombre }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div>
+  <label class="block mb-2">Remedios</label>
+  <div *ngFor="let r of remediosSeleccionados; let i = index" class="flex gap-4 mb-2">
+    <select [(ngModel)]="r.remedioId" [name]="'remedioId' + i" class="border rounded px-2 py-1 w-1/2">
+      <option *ngFor="let remedio of remedios" [value]="remedio.id">
+        {{ remedio.nombre }}
+      </option>
+    </select>
+    <input type="number" min="1" [(ngModel)]="r.dosis" [name]="'dosis' + i" class="border px-2 py-1 w-1/4" placeholder="Dosis" />
+    <button type="button" (click)="eliminarRemedio(i)" class="text-red-500 hover:underline">Quitar</button>
+  </div>
+  <button type="button" (click)="agregarRemedio()" class="text-blue-600 hover:underline">+ Agregar remedio</button>
+</div>
+
+
+    <button type="submit"
+            class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      Guardar Cita
+    </button>
+  </form>
+
+  <h3 class="text-xl font-semibold mt-8">Citas Registradas</h3>
+  <div class="overflow-x-auto">
+    <table class="w-full mt-2 table-auto border-collapse border border-gray-300">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="border px-4 py-2">Fecha</th>
+          <th class="border px-4 py-2">Mascota</th>
+          <th class="border px-4 py-2">Síntomas</th>
+          <th class="border px-4 py-2">Estado</th>
+          <th class="border px-4 py-2">Precio</th>
+          <th class="border px-4 py-2">Veterinarios</th>
+          <th class="border px-4 py-2">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cita of citas">
+          <td class="border px-4 py-2">{{ cita.fecha }}</td>
+          <td class="border px-4 py-2">{{ cita.mascota?.nombre }}</td>
+          <td class="border px-4 py-2">{{ cita.sintomas }}</td>
+          <td class="border px-4 py-2">{{ cita.estado?.nombre }}</td>
+          <td class="border px-4 py-2">${{ cita.precio }}</td>
+          <td class="border px-4 py-2">
+            <ul class="list-disc list-inside">
+              <li *ngFor="let vet of cita.veterinarios">{{ vet.nombre }}</li>
+            </ul>
+          </td>
+          <td class="border px-4 py-2 text-center">
+            <button (click)="eliminar(cita.id!)"
+                    class="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

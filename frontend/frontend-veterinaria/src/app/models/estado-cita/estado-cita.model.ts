@@ -1,5 +1,4 @@
 export interface EstadoCita {
-  id?: number;             // ID autogenerado
+  id: number;
   nombre: string;
-  descripcion: string;
 }
