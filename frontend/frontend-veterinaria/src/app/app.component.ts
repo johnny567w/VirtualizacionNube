@@ -6,7 +6,7 @@ import { CitaComponent } from './Component/Cita/cita/cita.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,FooterComponent,InicioComponent,RouterModule],
+  imports: [RouterOutlet,RouterModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
