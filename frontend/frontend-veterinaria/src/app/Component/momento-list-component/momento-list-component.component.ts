@@ -20,6 +20,8 @@ export class MomentoListComponent implements OnInit {
   }
 
   getImagenUrl(url: string): string {
-    return `${environment.apiBaseUrl}${url}`;
-  }
+    const path = url.startsWith('/api/') ? url.substring(4) : url;
+    return `${environment.apiBaseUrl}${path}`;
+}
+
 }
