@@ -1,0 +1,7 @@
+<div class="p-4">
+  <h2 class="text-xl font-bold mb-4">Galería de Momentos</h2>
+  <div *ngFor="let m of momentos" class="mb-6 border p-2 rounded shadow">
+    <p class="mb-2">{{ m.descripcion }}</p>
+    <img [src]="getImagenUrl(m.url)" alt="imagen" class="max-w-xs border">
+  </div>
+</div>

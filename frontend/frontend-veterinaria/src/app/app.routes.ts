@@ -6,6 +6,7 @@ import { ClienteComponent } from './Component/cliente/cliente.component';
 import { MascotaComponent } from './Component/mascota/mascota.component';
 import { CitaComponent } from './Component/Cita/cita/cita.component';
 import { FacturaComponent } from './Component/facturacion/facturacion.component';
+import { MomentoComponentComponent } from './Component/momento-component/momento-component.component';
 
 export const routes: Routes = [
   { path: 'inicio', component: InicioComponent },
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'clientes', component: ClienteComponent },
   { path: 'mascotas', component: MascotaComponent },
+  { path: 'momentos', component: MomentoComponentComponent },
 
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
 ];
