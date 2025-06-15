@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Momento } from '../../models/momento/momento.model';
 import { MomentoService } from '../../Services/Momento/momento.service';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-momento-list-component',
@@ -19,6 +20,6 @@ export class MomentoListComponent implements OnInit {
   }
 
   getImagenUrl(url: string): string {
-    return `http://<BACKEND_IP>:8080${url}`;
+    return `${environment.apiBaseUrl}${url}`;
   }
 }
