@@ -5,9 +5,9 @@ import { Remedio } from "../remedio/remedio.model";
 
 
 export interface FacturaDetalle {
-  id?: number;               // Opcional si es nuevo
-  cita?: Cita;               // Puede ser nulo (opcional)
-  remedio?: Remedio;         // Puede ser nulo (opcional)
+  id?: number;              
+  cita?: Cita;              
+  remedio?: Remedio;        
   cantidad: number;
   subtotal: number;
 }

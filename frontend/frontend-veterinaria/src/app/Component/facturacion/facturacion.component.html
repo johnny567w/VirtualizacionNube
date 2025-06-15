@@ -1,0 +1,121 @@
+<div class="p-6 space-y-6">
+<!-- 🔍 Cliente -->
+<div class="bg-white p-4 rounded-xl shadow border space-y-2">
+  <label class="block text-sm font-medium text-gray-700">Buscar Cliente</label>
+  <input
+    type="text"
+    [(ngModel)]="filtroCliente"
+    (input)="filtrarClientes()"
+    placeholder="Nombre del cliente..."
+    class="w-full border rounded-md px-3 py-2"
+  />
+  <div *ngIf="clientesFiltrados.length" class="space-y-1 max-h-40 overflow-y-auto">
+    <label *ngFor="let cliente of clientesFiltrados" class="flex items-center space-x-2">
+      <input
+        type="radio"
+        name="cliente"
+        [value]="cliente.id"
+        [(ngModel)]="clienteSeleccionadoId"
+(change)="seleccionarCliente(cliente.id!)"
+      />
+      <span>{{ cliente.nombre }}</span>
+    </label>
+  </div>
+</div>
+
+  <!-- 🐶 Mascota -->
+  <div class="bg-white p-4 rounded-xl shadow border space-y-2" *ngIf="mascotasFiltradas.length">
+    <label class="block text-sm font-medium text-gray-700">Buscar Mascota</label>
+    <input
+      type="text"
+      [(ngModel)]="filtroMascota"
+      (input)="filtrarMascotas()"
+      placeholder="Nombre de la mascota..."
+      class="w-full border rounded-md px-3 py-2"
+    />
+    <div class="space-y-1 max-h-40 overflow-y-auto">
+      <label *ngFor="let mascota of mascotasFiltradas" class="flex items-center space-x-2">
+        <input
+          type="radio"
+          name="mascota"
+          [value]="mascota.id"
+          [(ngModel)]="mascotaSeleccionadaId"
+          (change)="buscarCitasDeMascota()"
+        />
+        <span>{{ mascota.nombre }}</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- 🗓️ Citas -->
+  <div class="bg-white p-4 rounded-xl shadow border space-y-2" *ngIf="citasCliente.length">
+    <label class="block text-sm font-medium text-gray-700">Seleccionar Cita</label>
+    <select [(ngModel)]="citaSeleccionada" (change)="seleccionarCita(citaSeleccionada)"
+            class="w-full border rounded-md px-3 py-2">
+<option *ngFor="let c of citasCliente" [ngValue]="c">
+  {{ formatearCita(c) }}
+</option>
+
+    </select>
+  </div>
+
+  <!-- 🧾 Detalles de Factura -->
+  <div *ngIf="detallesFactura.length" class="bg-white p-4 rounded-xl shadow border">
+    <h3 class="text-lg font-semibold mb-2">Detalles de Factura</h3>
+    <table class="w-full text-left border">
+      <thead>
+        <tr>
+          <th class="px-4 py-2">Remedio</th>
+          <th class="px-4 py-2">Dosis</th>
+          <th class="px-4 py-2">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detalle of detallesFactura">
+          <td class="px-4 py-2">{{ detalle.remedio?.nombre }}</td>
+          <td class="px-4 py-2">{{ detalle.cantidad }}</td>
+          <td class="px-4 py-2">{{ detalle.subtotal | currency }}</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="px-4 py-2 font-bold">Precio Cita</td>
+          <td class="px-4 py-2">{{ citaSeleccionada?.precio ?? 0 | currency }}</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="px-4 py-2 font-bold">Total</td>
+          <td class="px-4 py-2">{{ totalFactura() | currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-right mt-4">
+      <button
+        class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+        (click)="generarFactura()"
+      >
+        Generar Factura
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 📜 Lista de Facturas -->
+<div class="bg-white p-4 rounded-xl shadow border mt-6" *ngIf="facturas.length">
+  <h3 class="text-lg font-semibold mb-2">📜 Facturas Registradas</h3>
+  <table class="w-full text-left border">
+    <thead>
+      <tr>
+        <th class="px-4 py-2">ID</th>
+        <th class="px-4 py-2">Cliente</th>
+        <th class="px-4 py-2">Fecha</th>
+        <th class="px-4 py-2">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let factura of facturas">
+        <td class="px-4 py-2">{{ factura.id }}</td>
+        <td class="px-4 py-2">{{ factura.cliente?.nombre ?? 'N/A' }}</td>
+        <td class="px-4 py-2">{{ factura.fecha }}</td>
+        <td class="px-4 py-2">{{ factura.total | currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

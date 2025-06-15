@@ -1,8 +1,7 @@
-import { FacturaDetalleDTO } from "./factura-detalle.dto";
-
 export interface FacturaDTO {
+  id?: number;
   clienteId: number;
   fecha: string;
   total: number;
-  detalles: FacturaDetalleDTO[];
+  facturaDetalles: number[]; 
 }

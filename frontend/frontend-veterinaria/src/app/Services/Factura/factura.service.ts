@@ -4,40 +4,41 @@ import { Observable } from 'rxjs';
 import { Factura } from '../../models/factura/factura.model';
 import { FacturaDTO } from '../../models/dto-factura/factura.dto';
 import { FacturaDetalleDTO } from '../../models/dto-factura/factura-detalle.dto';
-
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class FacturaService {
-  private apiUrl = '/api/facturas';
+  private baseUrl = '/api/facturas';
 
   constructor(private http: HttpClient) {}
 
   getFacturas(): Observable<Factura[]> {
-    return this.http.get<Factura[]>(this.apiUrl);
+    return this.http.get<Factura[]>(this.baseUrl);
   }
 
-  saveFactura(dto: FacturaDTO): Observable<Factura> {
-    return this.http.post<Factura>(this.apiUrl, dto);
+  getFactura(id: number): Observable<Factura> {
+    return this.http.get<Factura>(`${this.baseUrl}/${id}`);
   }
 
-  updateFactura(id: number, dto: FacturaDTO): Observable<Factura> {
-    return this.http.put<Factura>(`${this.apiUrl}/${id}`, dto);
+  guardarFactura(facturaDTO: FacturaDTO): Observable<Factura> {
+    return this.http.post<Factura>(this.baseUrl, facturaDTO);
   }
 
-  deleteFactura(id: number): Observable<Factura> {
-    return this.http.delete<Factura>(`${this.apiUrl}/${id}`);
+  actualizarFactura(id: number, facturaDTO: FacturaDTO): Observable<Factura> {
+    return this.http.put<Factura>(`${this.baseUrl}/${id}`, facturaDTO);
   }
 
-  addDetalle(idFactura: number, dto: FacturaDetalleDTO): Observable<Factura> {
-    return this.http.put<Factura>(`${this.apiUrl}/add-detalle/${idFactura}`, dto);
+  eliminarFactura(id: number): Observable<Factura> {
+    return this.http.delete<Factura>(`${this.baseUrl}/${id}`);
   }
 
-  removeDetalle(idFactura: number, idDetalle: number): Observable<Factura> {
-    return this.http.put<Factura>(`${this.apiUrl}/remove-detalle/${idFactura}/${idDetalle}`, {});
+  agregarDetalle(facturaId: number, detalle: any): Observable<Factura> {
+    return this.http.put<Factura>(`${this.baseUrl}/add-detalle/${facturaId}`, detalle);
   }
 
-  getFacturaFinal(id: number): Observable<Factura> {
-    return this.http.get<Factura>(`${this.apiUrl}/final/${id}`);
+  eliminarDetalle(facturaId: number, detalleId: number): Observable<Factura> {
+    return this.http.put<Factura>(`${this.baseUrl}/remove-detalle/${facturaId}/${detalleId}`, {});
+  }
+
+  obtenerFacturaFinal(id: number): Observable<Factura> {
+    return this.http.get<Factura>(`${this.baseUrl}/final/${id}`);
   }
 }

@@ -6,9 +6,9 @@ import { FacturaDetalle } from "../factura-detalle/factura-detalle.model";
 
 
 export interface Factura {
-  id?: number;                       // Es opcional porque puede no existir al crear
+  id?: number;                       
   cliente: Cliente;
-  fecha: string;                    // Se usa string para fechas ISO (ej. "2025-06-13")
+  fecha: string;                    
   total: number;
   facturaDetalles: FacturaDetalle[];
 }

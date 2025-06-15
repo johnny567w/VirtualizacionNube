@@ -1,6 +1,7 @@
 package com.sistemas.distribuidos.ups.backend_veterinaria.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,8 +14,9 @@ public class CitaRemedio {
 
     @ManyToOne
     @JoinColumn(name = "cita_id")
-    @JsonIgnore
+    @JsonIgnoreProperties({"veterinarios", "mascota", "estado", "sintomas", "precio"})
     private Cita cita;
+
 
     @ManyToOne
     @JoinColumn(name = "remedio_id")

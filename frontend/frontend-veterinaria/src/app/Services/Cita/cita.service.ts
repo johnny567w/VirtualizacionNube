@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Cita } from '../../models/cita/cita.model';
 import { CitaDTO } from '../../models/dto-cita/cita.dto';
+import { CitaRemedioDTO } from '../../models/dto-cita/cita-remedio.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -39,8 +40,12 @@ export class CitaService {
 cambiarEstado(citaId: number, estadoId: number) {
   return this.http.put(`/api/citas/${citaId}/${estadoId}`, {});
 }
-
-
+agregarRemedio(remedioDTO: any): Observable<any> {
+  return this.http.post('/api/citas-remedios', remedioDTO);
+}
+obtenerRemediosPorCita(citaId: number): Observable<CitaRemedioDTO[]> {
+  return this.http.get<CitaRemedioDTO[]>(`/api/citas-remedios/cita/${citaId}`);
+}
 
 }
 
