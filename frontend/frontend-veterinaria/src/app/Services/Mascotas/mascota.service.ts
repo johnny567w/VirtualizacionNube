@@ -5,10 +5,11 @@ import { Mascota } from '../../models/mascota/mascota.model';
 import { Raza } from '../../models/raza/raza.model';
 import { Especie } from '../../models/especie/especie.model';
 import { Cliente } from '../../models/cliente/cliente.model';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({ providedIn: 'root' })
 export class MascotaService {
-  private apiUrl = '/api/mascotas';
+  private apiUrl = `${environment.apiBaseUrl}/mascotas`;
 
   constructor(private http: HttpClient) {}
 

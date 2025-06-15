@@ -3,10 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Raza } from '../../models/raza/raza.model';
 import { Especie } from '../../models/especie/especie.model';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({ providedIn: 'root' })
 export class RazaService {
-  private baseUrl = '/api/especies-razas';
+  private baseUrl = `${environment.apiBaseUrl}/especies-razas`;
 
   constructor(private http: HttpClient) {}
 

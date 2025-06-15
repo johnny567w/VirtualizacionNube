@@ -4,9 +4,10 @@ import { Observable } from 'rxjs';
 import { Factura } from '../../models/factura/factura.model';
 import { FacturaDTO } from '../../models/dto-factura/factura.dto';
 import { FacturaDetalleDTO } from '../../models/dto-factura/factura-detalle.dto';
+import { environment } from '../../../environments/environment.prod';
 @Injectable({ providedIn: 'root' })
 export class FacturaService {
-  private baseUrl = '/api/facturas';
+  private baseUrl = `${environment.apiBaseUrl}/facturas`;
 
   constructor(private http: HttpClient) {}
 

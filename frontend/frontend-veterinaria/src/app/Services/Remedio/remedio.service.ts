@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Remedio } from '../../models/remedio/remedio.model';
+import { environment } from '../../../environments/environment.prod';
 
 
 
@@ -9,7 +10,7 @@ import { Remedio } from '../../models/remedio/remedio.model';
   providedIn: 'root'
 })
 export class RemedioService {
-  private apiUrl = '/api/remedios';
+  private apiUrl = `${environment.apiBaseUrl}/remedios`;
 
   constructor(private http: HttpClient) {}
 

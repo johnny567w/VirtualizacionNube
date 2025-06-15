@@ -4,10 +4,11 @@ import { Observable } from 'rxjs';
 import { Veterinario } from '../../models/veterinario/veterinario.model';
 import { Especialidad } from '../../models/especialidad/especialidad.model';
 import { Mensaje } from '../../models/mensaje/mensaje.model';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({ providedIn: 'root' })
 export class VeterinarioService {
-  private apiUrl = '/api/veterinarios';
+  private apiUrl = `${environment.apiBaseUrl}/veterinarios`;
 
   constructor(private http: HttpClient) {}
 

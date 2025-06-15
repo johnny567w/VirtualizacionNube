@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Remedio } from '../../models/remedio/remedio.model';
 import { CitaRemedio } from '../../models/cita-remedio/cita-remedio.model';
+import { environment } from '../../../environments/environment.prod';
 
 
 
@@ -11,7 +12,7 @@ import { CitaRemedio } from '../../models/cita-remedio/cita-remedio.model';
 })
 export class CitaRemedioService {
 
-  private apiUrl = '/api/citas-remedios';
+  private apiUrl = `${environment.apiBaseUrl}/citas-remedios`;
 
   constructor(private http: HttpClient) {}
 

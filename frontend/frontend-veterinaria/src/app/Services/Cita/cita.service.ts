@@ -4,12 +4,13 @@ import { Observable } from 'rxjs';
 import { Cita } from '../../models/cita/cita.model';
 import { CitaDTO } from '../../models/dto-cita/cita.dto';
 import { CitaRemedioDTO } from '../../models/dto-cita/cita-remedio.dto';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CitaService {
-  private baseUrl = '/api/citas';
+  private baseUrl = `${environment.apiBaseUrl}/citas`;
 
   constructor(private http: HttpClient) {}
 
